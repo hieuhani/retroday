@@ -17,26 +17,12 @@
 
 <script setup lang="ts">
 import type { User } from 'firebase/auth'
-import type { Unsubscribe } from 'firebase/database'
-import { ref as firebaseRef, onValue } from 'firebase/database'
-import { database } from '~/firebase'
-import type { BaseUser } from '~/types'
+import { useActiveUsers } from '~/composables'
 
-const usersRef = firebaseRef(database, 'users')
 defineProps<{
   user: User
 }>()
-const users = ref<Record<string, BaseUser>>({})
-const unsubRef = ref<Unsubscribe | undefined>()
-
-onMounted(() => {
-  unsubRef.value = onValue(usersRef, (snapshot) => {
-    users.value = snapshot.val()
-  })
-})
-onUnmounted(() => {
-  unsubRef.value && unsubRef.value()
-})
+const users = useActiveUsers()
 
 const usersCount = computed(() => Object.keys(users.value).length)
 </script>
