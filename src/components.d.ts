@@ -9,7 +9,6 @@ declare module 'vue' {
     Carbon3dMprToggle: typeof import('~icons/carbon/3d-mpr-toggle')['default']
     CarbonCampsite: typeof import('~icons/carbon/campsite')['default']
     CarbonChat: typeof import('~icons/carbon/chat')['default']
-    CarbonCheckmarkFilled: typeof import('~icons/carbon/checkmark-filled')['default']
     CarbonLanguage: typeof import('~icons/carbon/language')['default']
     CarbonMenu: typeof import('~icons/carbon/menu')['default']
     CarbonMoon: typeof import('~icons/carbon/moon')['default']

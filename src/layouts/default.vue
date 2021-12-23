@@ -53,10 +53,5 @@ if (window.location.href.includes('apiKey='))
     <div v-else>
       <sign-in />
     </div>
-
-    <Footer />
-    <div class="mt-5 mx-auto text-center opacity-25 text-sm">
-      [Default Layout]
-    </div>
   </main>
 </template>

@@ -5,6 +5,7 @@ specifiers:
   '@headlessui/vue': ^1.4.2
   '@iconify-json/carbon': ^1.0.12
   '@intlify/vite-plugin-vue-i18n': ^3.2.1
+  '@types/canvas-confetti': ^1.4.2
   '@types/markdown-it-link-attributes': ^3.0.1
   '@types/nprogress': ^0.2.0
   '@vitejs/plugin-vue': ^2.0.1
@@ -12,6 +13,7 @@ specifiers:
   '@vue/server-renderer': ^3.2.26
   '@vueuse/core': ^7.3.0
   '@vueuse/head': ^0.7.4
+  canvas-confetti: ^1.4.0
   critters: ^0.0.15
   cross-env: ^7.0.3
   cypress: ^9.1.1
@@ -47,6 +49,7 @@ dependencies:
   '@headlessui/vue': 1.4.2_vue@3.2.26
   '@vueuse/core': 7.3.0_vue@3.2.26
   '@vueuse/head': 0.7.4_vue@3.2.26
+  canvas-confetti: 1.4.0
   firebase: 9.6.1
   nprogress: 0.2.0
   pinia: 2.0.6_typescript@4.5.4+vue@3.2.26
@@ -60,6 +63,7 @@ devDependencies:
   '@antfu/eslint-config': 0.13.1_eslint@8.4.1+typescript@4.5.4
   '@iconify-json/carbon': 1.0.12
   '@intlify/vite-plugin-vue-i18n': 3.2.1_vite@2.7.2+vue-i18n@9.1.9
+  '@types/canvas-confetti': 1.4.2
   '@types/markdown-it-link-attributes': 3.0.1
   '@types/nprogress': 0.2.0
   '@vitejs/plugin-vue': 2.0.1_vite@2.7.2+vue@3.2.26
@@ -1903,8 +1907,8 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/message-compiler': 9.2.0-beta.23
-      '@intlify/shared': 9.2.0-beta.23
+      '@intlify/message-compiler': 9.2.0-beta.25
+      '@intlify/shared': 9.2.0-beta.25
       jsonc-eslint-parser: 1.4.1
       source-map: 0.6.1
       vue-i18n: 9.1.9_vue@3.2.26
@@ -1939,11 +1943,11 @@ packages:
       source-map: 0.6.1
     dev: false
 
-  /@intlify/message-compiler/9.2.0-beta.23:
-    resolution: {integrity: sha512-qmGN8k5yGGdZ5St8yg8U4Tg2K9Sc6h3BhWCdJKAqQVs5jnfZG+nMtsLVgnJUWkDvhjzyg7/rEOhHm2uJcu4vjw==}
+  /@intlify/message-compiler/9.2.0-beta.25:
+    resolution: {integrity: sha512-/YMG6LmQLvD8uHCJvWLaK0t8exYbek3ya4BZZ99AcM5+JC/JRdLIK8WiVJnGpfrvleQArxvHed4GokS+oWZ5rQ==}
     engines: {node: '>= 12'}
     dependencies:
-      '@intlify/shared': 9.2.0-beta.23
+      '@intlify/shared': 9.2.0-beta.25
       source-map: 0.6.1
     dev: true
 
@@ -1966,8 +1970,8 @@ packages:
     engines: {node: '>= 10'}
     dev: false
 
-  /@intlify/shared/9.2.0-beta.23:
-    resolution: {integrity: sha512-3aELL2KTp1MWKGm2gIUKSagthgKzcK5hpQEFzOwkJ1SAthpTXR7BHeWGEaD+Lj+Pbiz3U8cspvp8s2lFWVbYxg==}
+  /@intlify/shared/9.2.0-beta.25:
+    resolution: {integrity: sha512-I2L05aWh0azr5KwQjLV7gMTN0SrdglgMAfpJniT53Pvvc8l+OTs8IEhdPCQwsbgOravpWt14O7m3deOzw3ln6w==}
     engines: {node: '>= 12'}
     dev: true
 
@@ -1985,7 +1989,7 @@ packages:
         optional: true
     dependencies:
       '@intlify/bundle-utils': 2.2.0_vue-i18n@9.1.9
-      '@intlify/shared': 9.2.0-beta.23
+      '@intlify/shared': 9.2.0-beta.25
       '@rollup/pluginutils': 4.1.1
       debug: 4.3.2
       fast-glob: 3.2.7
@@ -2147,6 +2151,10 @@ packages:
   /@tootallnate/once/1.1.2:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
     engines: {node: '>= 6'}
+    dev: true
+
+  /@types/canvas-confetti/1.4.2:
+    resolution: {integrity: sha512-t45KUDHlwrD9PJVRHc5z1SlXhO82BQEgMKUXGEV1KnWLFMPA6Y5LfUsLTHHzH9KcKDHZLEiYYH5nIDcjRKWNTg==}
     dev: true
 
   /@types/estree/0.0.39:
@@ -3007,6 +3015,10 @@ packages:
   /caniuse-lite/1.0.30001258:
     resolution: {integrity: sha512-RBByOG6xWXUp0CR2/WU2amXz3stjKpSl5J1xU49F1n2OxD//uBZO4wCKUiG+QMGf7CHGfDDcqoKriomoGVxTeA==}
     dev: true
+
+  /canvas-confetti/1.4.0:
+    resolution: {integrity: sha512-S18o4Y9PqI/uabdlT/jI3MY7XBJjNxnfapFIkjkMwpz6qNxLFZOm2b22OMf4ZYDL9lpNWI+Ih4fEMVPwO1KHFQ==}
+    dev: false
 
   /caseless/0.12.0:
     resolution: {integrity: sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=}

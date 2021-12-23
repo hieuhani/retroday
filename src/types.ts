@@ -10,4 +10,6 @@ export interface BaseUser {
 export interface SessionConfession {
   title: string
   createdAt: number
+  anonymous?: Record<string, Record<string, string>>
+  data?: Record<string, Record<string, string>>
 }

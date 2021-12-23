@@ -11,7 +11,7 @@
               {{ confession.title }}
             </span>
             <div class="space-y-2 w-40 flex-col flex">
-              <button :class="['px-4 py-1 w-full rounded inline-block  border', activeConfessionSession === id ? 'bg-teal-600 text-white' : 'hover:bg-teal-600 hover:text-white']" @click="() => setActiveSessionConfession(id)">
+              <button :class="['px-4 py-1 w-full rounded inline-block border', activeConfessionSession === id ? 'bg-red-500 text-white' : 'hover:bg-teal-600 hover:text-white']" @click="() => setActiveSessionConfession(id)">
                 {{ activeConfessionSession === id ? 'Current active' : 'Set Active' }}
               </button>
               <button class="px-4 py-1 w-full rounded inline-block border" @click="() => shuffleConfessUsers(activeConfessionSession)">

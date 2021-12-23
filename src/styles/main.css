@@ -29,9 +29,9 @@ html.dark {
 }
 
 .btn {
-  @apply px-4 py-1 rounded inline-block
-    bg-teal-600 text-white cursor-pointer
-    hover:bg-teal-700
+  @apply px-4 py-1 rounded rounded-md inline-block
+    bg-red-300 text-white cursor-pointer
+    hover:bg-red-400
     disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50;
 }
 
