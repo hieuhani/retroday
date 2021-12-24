@@ -31,7 +31,8 @@
   </div>
 </template>
 
-<script  setup lang="ts">import { useActiveConfessionId, useActiveUsers, useGetConfessionSession } from '~/composables'
+<script  setup lang="ts">
+import { useActiveConfessionId, useActiveUsers, useGetConfessionSession } from '~/composables'
 const activeConfessionSessionId = useActiveConfessionId()
 const confessionSession = useGetConfessionSession(activeConfessionSessionId)
 const users = useActiveUsers()

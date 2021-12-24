@@ -13,3 +13,9 @@ export interface SessionConfession {
   anonymous?: Record<string, Record<string, string>>
   data?: Record<string, Record<string, string>>
 }
+
+export interface Action {
+  value: string
+  anonymous: boolean
+  uid?: string
+}

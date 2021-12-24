@@ -44,6 +44,18 @@
               <span>Actions</span>
             </router-link>
           </MenuItem>
+          <MenuItem v-slot="{ active }">
+            <router-link
+              to="/tinder-actions"
+              :class="[
+                active ? 'bg-red-500 text-white' : 'text-gray-600',
+                'group flex rounded-md items-center w-full px-2 py-2 text-sm space-x-2',
+              ]"
+            >
+              <carbon-interactions class="w-6 h-6" />
+              <span>Tinder Actions</span>
+            </router-link>
+          </MenuItem>
         </div>
       </MenuItems>
     </transition>
