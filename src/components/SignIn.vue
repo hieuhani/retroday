@@ -8,7 +8,7 @@
       v-model="email"
       type="email"
       autocomplete="false"
-      placeholder="Enter your @encapital.io"
+      placeholder="username@encapital.io"
       p="x-4 y-2"
       w="full"
       text="center"
@@ -33,7 +33,7 @@ const signInStatus = ref('')
 const email = ref('')
 
 const actionCodeSettings = {
-  url: 'http://localhost:3333',
+  url: 'https://retrocap-56992.web.app',
   handleCodeInApp: true,
 }
 

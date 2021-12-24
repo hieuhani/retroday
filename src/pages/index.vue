@@ -1,98 +1,70 @@
 <template>
-  <div class="px-2 space-y-4">
-    <h3 class="font-lg font-medium text-center">
-      A goodwill note for your colleges to say thanks and recommendations
-    </h3>
-    <div class="space-y-2">
-      <div v-for="feedback in feedbacks" :key="feedback.uid" class="border border-gray-300 rounded-lg shadow-sm overflow-hidden focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
-        <label v-if="users[feedback.uid]" :for="`feedback-for-${feedback.uid}`" class="w-full px-3 pt-3 pb-1 inline-flex">Dear <span class="font-medium ml-1">{{ users[feedback.uid].email }}</span></label>
-        <label :for="`feedback-for-${feedback.uid}`" class="sr-only">Description</label>
-        <textarea
-          :id="`feedback-for-${feedback.uid}`"
-          v-model="feedback.value"
-          rows="3"
-          name="description"
-          class="block w-full border-0 px-3 pb-3 resize-none placeholder-gray-500 focus:ring-0 sm:text-sm"
-          placeholder="Write a confession..."
-        />
-        <div class="px-2 py-1 space-x-1 items-center flex">
-          <input :id="`feedback-for-${feedback.uid}-anonymously`" v-model="feedback.anonymous" type="checkbox" class="border-gray-300 rounded-lg text-red-500">
-          <label :for="`feedback-for-${feedback.uid}-anonymously`" class="text-sm">Send anonymously</label>
+  <div class="px-2">
+    <div class="mb-4 border border-gray-300 rounded-lg shadow-sm overflow-hidden focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
+      <label for="action-description" class="sr-only">Description</label>
+      <textarea
+        id="action-description"
+        v-model="actionForm.value"
+        rows="3"
+        name="description"
+        class="block w-full border-0 px-3 py-3 resize-none placeholder-gray-500 focus:ring-0 sm:text-sm"
+        placeholder="Submit your idea or action to vote..."
+      />
+      <div class="px-2 py-1 flex justify-between">
+        <div class="items-center flex space-x-1">
+          <input id="send-anonymous" v-model="actionForm.anonymous" type="checkbox" class="border-gray-300 rounded-lg text-red-500">
+          <label for="send-anonymous" class="text-sm">Send anonymously</label>
+        </div>
+        <button class="btn py-2 flex items-center" :disabled="!isValid || loadingStatus === 'loading'" @click="submit">
+          Submit
+          <carbon-contour-finding v-if="loadingStatus === 'loading'" class="animate-spin ml-2" />
+        </button>
+      </div>
+    </div>
+    <div class="space-y-3">
+      <div v-for="(action, randomId) in actions" :key="randomId" class="rounded py-2 px-2 rounded-lg bg-red-100 shadow-sm">
+        {{ action.value }}
+        <div v-if="action.uid">
+          <h3 class="text-xs font-medium text-right text-red-700">
+            {{ users[action.uid] ? users[action.uid].email : 'Anonymous' }}
+          </h3>
         </div>
       </div>
     </div>
-    <button class="btn w-full bg-red-500 py-2 flex justify-center items-center" :disabled="!isValid || loadingStatus === 'loading'" @click="send">
-      Send with love
-      <carbon-contour-finding v-if="loadingStatus === 'loading'" class="animate-spin ml-2" />
-    </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import confetti from 'canvas-confetti'
-import { set, ref as firebaseRef, push } from 'firebase/database'
-import { useActiveConfessionId, useActiveUsers, useGetConfessionSession } from '~/composables'
-import { useAuthStore } from '~/stores/auth'
+import { ref as firebaseRef, push } from 'firebase/database'
+import { useActions, useActiveUsers } from '~/composables'
 import { database } from '~/firebase'
+import { useAuthStore } from '~/stores/auth'
 
-interface FeedbackInput {
-  uid: string
+const users = useActiveUsers()
+
+interface ActionInput {
   value: string
   anonymous: boolean
 }
-const activeConfessionSessionId = useActiveConfessionId()
-const confessionSession = useGetConfessionSession(activeConfessionSessionId)
-const auth = useAuthStore()
-const users = useActiveUsers()
-const feedbacks = ref<FeedbackInput[]>([])
-const loadingStatus = ref('')
-const isValid = computed(() => feedbacks.value.every(feedback => feedback.value))
 
-watchEffect(() => {
-  if (feedbacks.value.length === 0 && auth.currentUser && confessionSession.value && confessionSession.value.data && confessionSession.value.data[auth.currentUser.uid]) {
-    const data = confessionSession.value.data[auth.currentUser.uid]
-    feedbacks.value = Object.keys(data).map(uid => ({ uid, value: data[uid], anonymous: false }))
-  }
+const auth = useAuthStore()
+const actions = useActions()
+const loadingStatus = ref('')
+const actionForm = ref<ActionInput>({
+  value: '',
+  anonymous: false,
 })
 
-async function send() {
-  if (!auth.currentUser)
-    throw new Error('Please sign in to send')
+const activeActionsRef = firebaseRef(database, 'action/actions')
+const isValid = computed(() => actionForm.value.value)
 
+async function submit() {
   loadingStatus.value = 'loading'
-  const activeConfessionRef = firebaseRef(database, `confession/sessions/${activeConfessionSessionId.value}/data/${auth.currentUser.uid}`)
-
-  const { userFeedbacks, anonymousFeedbacks } = feedbacks.value.reduce<{userFeedbacks: Record<string, string>; anonymousFeedbacks: Record<string, string>}>((prev, current) => {
-    if (current.anonymous) {
-      return {
-        ...prev,
-        anonymousFeedbacks: {
-          [current.uid]: current.value,
-          ...prev.anonymousFeedbacks,
-        },
-      }
-    }
-    return {
-      ...prev,
-      userFeedbacks: {
-        [current.uid]: current.value,
-        ...prev.userFeedbacks,
-      },
-    }
-  }, {
-    userFeedbacks: {},
-    anonymousFeedbacks: {},
+  await push(activeActionsRef, {
+    ...actionForm.value,
+    uid: actionForm.value.anonymous ? null : auth.currentUser?.uid,
   })
-
-  await set(activeConfessionRef, userFeedbacks)
-
-  Object.keys(anonymousFeedbacks).forEach(async(uid) => {
-    if (anonymousFeedbacks[uid]) {
-      const anonymousRef = firebaseRef(database, `confession/sessions/${activeConfessionSessionId.value}/anonymous/${uid}`)
-      await push(anonymousRef, anonymousFeedbacks[uid])
-    }
-  })
-  confetti()
+  actionForm.value = { value: '', anonymous: false }
   loadingStatus.value = ''
 }
 </script>

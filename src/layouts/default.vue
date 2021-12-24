@@ -53,5 +53,6 @@ if (window.location.href.includes('apiKey='))
     <div v-else>
       <sign-in />
     </div>
+    <Footer />
   </main>
 </template>
