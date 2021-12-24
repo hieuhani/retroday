@@ -40,6 +40,7 @@ async function signIn() {
     sendSignInLinkToEmail(auth, email.value, actionCodeSettings)
     localStorage.setItem('emailForSignIn', email.value)
     signInStatus.value = 'Please open the link we sent to your email to continue'
+    email.value = ''
   }
   catch (error: any) {
     signInStatus.value = error.message
