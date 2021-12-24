@@ -1,3 +1,5 @@
 <template>
-  <div>XXX</div>
+  <div class="px-2">
+    XXX
+  </div>
 </template>

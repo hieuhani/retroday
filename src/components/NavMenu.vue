@@ -22,9 +22,9 @@
         <div class="px-1 py-1">
           <MenuItem v-slot="{ active }">
             <router-link
-              to="/confessions"
+              to="/"
               :class="[
-                active ? 'bg-violet-500 text-white' : 'text-gray-600',
+                active ? 'bg-red-500 text-white' : 'text-gray-600',
                 'group flex rounded-md items-center w-full px-2 py-2 text-sm space-x-2',
               ]"
             >
@@ -36,7 +36,7 @@
             <router-link
               to="/actions"
               :class="[
-                active ? 'bg-violet-500 text-white' : 'text-gray-600',
+                active ? 'bg-red-500 text-white' : 'text-gray-600',
                 'group flex rounded-md items-center w-full px-2 py-2 text-sm space-x-2',
               ]"
             >
