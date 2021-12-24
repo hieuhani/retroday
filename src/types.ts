@@ -18,4 +18,5 @@ export interface Action {
   value: string
   anonymous: boolean
   uid?: string
+  votes?: Record<string, 'like' | 'nope'>
 }
