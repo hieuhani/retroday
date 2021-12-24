@@ -1,5 +1,8 @@
 <template>
-  <form class="space-y-2 mx-auto w-64" @submit.prevent="signIn">
+  <form class="space-y-2 mx-auto w-64 pt-4" @submit.prevent="signIn">
+    <h2 class="text-center text-2xl mb-2">
+      Retroday
+    </h2>
     <input
       id="input"
       v-model="email"
@@ -10,12 +13,12 @@
       w="full"
       text="center"
       bg="transparent"
-      border="~ rounded gray-200 dark:gray-700"
+      border="~ rounded gray-200"
       outline="none active:none"
     >
     <label class="hidden" for="input">Email</label>
     <div>
-      <button class="btn w-full" :disabled="!email || signInStatus === 'Loading'">
+      <button class="btn w-full py-2" :disabled="!email || signInStatus === 'Loading'">
         Sign in
       </button>
       {{ signInStatus }}

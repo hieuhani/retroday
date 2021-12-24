@@ -11,7 +11,6 @@ declare module 'vue' {
     CarbonContourFinding: typeof import('~icons/carbon/contour-finding')['default']
     CarbonInteractions: typeof import('~icons/carbon/interactions')['default']
     CarbonMenu: typeof import('~icons/carbon/menu')['default']
-    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
     NavMenu: typeof import('./components/NavMenu.vue')['default']
