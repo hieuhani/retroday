@@ -45,7 +45,7 @@ if (window.location.href.includes('apiKey='))
 
 </script>
 <template>
-  <main class="text-gray-700 ">
+  <main class="text-gray-700 max-w-screen-sm mx-auto">
     <div v-if="auth.currentUser">
       <Header :user="auth.currentUser" />
       <router-view />

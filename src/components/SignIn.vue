@@ -33,7 +33,7 @@ const signInStatus = ref('')
 const email = ref('')
 
 const actionCodeSettings = {
-  url: 'https://retrocap-56992.web.app',
+  url: 'https://retroday.fun',
   handleCodeInApp: true,
 }
 

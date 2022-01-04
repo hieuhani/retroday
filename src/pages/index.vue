@@ -22,7 +22,16 @@
       </div>
     </div>
     <div class="space-y-3">
-      <div v-for="(action, randomId) in actions" :key="randomId" class="rounded py-2 px-2 rounded-lg bg-red-100 shadow-sm">
+      <router-link
+        to="/action-result"
+        :class="[
+          'group flex rounded-md items-center w-full px-2 py-3 text-sm space-x-2 bg-green-200 shadow-sm justify-center text-lg',
+        ]"
+      >
+        <carbon-chat class="w-6 h-6" />
+        <span>View summary</span>
+      </router-link>
+      <div v-for="(action) in computedActions" :key="action.randomId" class="rounded py-2 px-2 rounded-lg bg-red-100 shadow-sm">
         {{ action.value }}
         <div v-if="action.uid">
           <h3 class="text-xs font-medium text-right text-red-700">
@@ -49,6 +58,12 @@ interface ActionInput {
 
 const auth = useAuthStore()
 const actions = useActions()
+const computedActions = computed(() => {
+  return Object.keys(actions.value).map(randomId => ({
+    randomId,
+    ...actions.value[randomId],
+  })).sort((a, b) => b.value.length - a.value.length)
+})
 const loadingStatus = ref('')
 const actionForm = ref<ActionInput>({
   value: '',
